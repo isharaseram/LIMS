@@ -1,0 +1,121 @@
+
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+DROP DATABASE IF EXISTS `lims_db`;
+CREATE DATABASE IF NOT EXISTS `lims_db`;
+
+
+--
+-- Table structure for table `limb`
+--
+USE lims_db;
+DROP TABLE IF EXISTS `limb`;
+CREATE TABLE IF NOT EXISTS `limb` (
+  `lid` varchar(20) NOT NULL,
+  `regnum` varchar(50) NOT NULL,
+  `date` date NOT NULL,
+  `amputepay` varchar(15) NOT NULL,
+  `sponspaid` varchar(15) NOT NULL,
+  `observation` varchar(150) NOT NULL,
+  `recomand` varchar(200) NOT NULL,
+  `confirm` varchar(150) NOT NULL,
+  `condate` date NOT NULL,
+  `crton` date NOT NULL,
+  `crtby` char(20) NOT NULL,
+  `modon` date NOT NULL,
+  `modby` char(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `member`
+--
+USE lims_db;
+DROP TABLE IF EXISTS `member`;
+CREATE TABLE IF NOT EXISTS `member` (
+  `regnum` varchar(25) NOT NULL,
+  `date` date NOT NULL,
+  `district` char(35) NOT NULL,
+  `fname` char(20) NOT NULL,
+  `lname` char(20) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `age` int(3) NOT NULL,
+  `sex` char(10) NOT NULL,
+  `phone` varchar(10) NOT NULL,
+  `education` text NOT NULL,
+  `fammem` int(2) NOT NULL,
+  `prioremp` varchar(50) NOT NULL,
+  `presntemp` varchar(50) NOT NULL,
+  `surgerydate` int(25) NOT NULL,
+  `reason` text NOT NULL,
+  `surgeonhospitle` char(100) NOT NULL,
+  `whichleg` char(10) NOT NULL,
+  `bouk` char(10) NOT NULL,
+  `crton` date NOT NULL,
+  `crtby` char(20) NOT NULL,
+  `modon` date NOT NULL,
+  `modby` char(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+USE lims_db;
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `userid` int(3) NOT NULL,
+  `username` char(30) NOT NULL,
+  `userlevel` char(20) NOT NULL,
+  `pw` varchar(30) NOT NULL,
+  `crtby` varchar(30) NOT NULL,
+  `crton` date NOT NULL,
+  `modby` varchar(30) NOT NULL,
+  `modon` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `limb`
+--
+ALTER TABLE `limb`
+  ADD PRIMARY KEY (`lid`),
+  ADD KEY `reg_num` (`regnum`);
+
+--
+-- Indexes for table `member`
+--
+ALTER TABLE `member`
+  ADD PRIMARY KEY (`regnum`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`userid`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `userid` int(3) NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `limb`
+--
+ALTER TABLE `limb`
+  ADD CONSTRAINT `limb_regnum` FOREIGN KEY (`regnum`) REFERENCES `member` (`regnum`) ON UPDATE CASCADE;
